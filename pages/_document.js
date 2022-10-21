@@ -16,11 +16,11 @@ class MyDocument extends Document {
           <link rel='icon' href='/favicon.ico' />
           <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
           {/* 谷歌字体镜像 */}
-          <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet"/>
+          <link href={`${BLOG.FONT_URL}`} rel="stylesheet"/>
           <CommonScript />
         </Head>
 
-        <body className={`${BLOG.FONT} bg-day dark:bg-night`}>
+        <body className={`${BLOG.FONT} tracking-wider subpixel-antialiased bg-day dark:bg-night`}>
           <Main />
           <NextScript />
         </body>
