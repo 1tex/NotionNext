@@ -1,28 +1,29 @@
 import BLOG from 'blog.config'
+import React from 'react'
+import dynamic from 'next/dynamic'
+
 import 'animate.css'
 import '@/styles/globals.css'
-// custom
+
 // core styles shared by all of react-notion-x (required)
 import 'react-notion-x/src/styles.css'
 import '@/styles/notion.css' //  重写部分样式
 
-// used for collection views (optional)
-// import 'rc-dropdown/assets/index.css'
-// import 'prismjs/themes/prism-tomorrow.min.css'
-import 'prism-themes/themes/prism-one-dark.css'
-import '@/styles/prism-mac-style.css' //  將 Prism 加入 mac 視窗樣式
-
-// import 'react-notion-x/build/third-party/equation.css'
-import 'katex/dist/katex.min.css'
-
-// waline 评论插件
-import '@waline/client/dist/waline.css'
-
-import dynamic from 'next/dynamic'
 import { GlobalContextProvider } from '@/lib/global'
 import { DebugPanel } from '@/components/DebugPanel'
 import { ThemeSwitch } from '@/components/ThemeSwitch'
 import { Fireworks } from '@/components/Fireworks'
+import { Nest } from '@/components/Nest'
+import { FlutteringRibbon } from '@/components/FlutteringRibbon'
+import { Ribbon } from '@/components/Ribbon'
+import { Sakura } from '@/components/Sakura'
+import { StarrySky } from '@/components/StarrySky'
+import MusicPlayer from '@/components/MusicPlayer'
+import ExternalScript from '@/components/ExternalScript'
+import { isBrowser } from '@/lib/utils'
+
+import AOS from 'aos'
+import 'aos/dist/aos.css' // You can also use <link> for styles
 
 const Ackee = dynamic(() => import('@/components/Ackee'), { ssr: false })
 const Gtag = dynamic(() => import('@/components/Gtag'), { ssr: false })
@@ -44,13 +45,22 @@ const MyApp = ({ Component, pageProps }) => {
         {JSON.parse(BLOG.ANALYTICS_BUSUANZI_ENABLE) && <Busuanzi />}
         {BLOG.ADSENSE_GOOGLE_ID && <GoogleAdsense />}
         {BLOG.FACEBOOK_APP_ID && BLOG.FACEBOOK_PAGE_ID && <Messenger />}
-        {JSON.parse(BLOG.FIREWORKS) && <Fireworks/>}
+        {JSON.parse(BLOG.FIREWORKS) && <Fireworks />}
+        {JSON.parse(BLOG.SAKURA) && <Sakura />}
+        {JSON.parse(BLOG.STARRY_SKY) && <StarrySky />}
+        {JSON.parse(BLOG.MUSIC_PLAYER) && <MusicPlayer />}
+        {JSON.parse(BLOG.NEST) && <Nest />}
+        {JSON.parse(BLOG.FLUTTERINGRIBBON) && <FlutteringRibbon />}
+        {JSON.parse(BLOG.RIBBON) && <Ribbon />}
+        <ExternalScript/>
     </>
+
+  if (isBrowser()) {
+    AOS.init()
+  }
 
   return (
         <GlobalContextProvider>
-            {/* FontawesomeCDN */}
-            <link rel="stylesheet" href={BLOG.FONT_AWESOME_PATH} referrerPolicy="no-referrer" />
             {externalPlugins}
             <Component {...pageProps} />
         </GlobalContextProvider>
